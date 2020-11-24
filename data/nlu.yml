@@ -1,0 +1,244 @@
+version: "2.0"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+- intent: weather_for_location
+  examples: |
+    - check the weather
+    - what is the weather
+    - what is the weather in [Mumbai](GPE)
+    - what is the weather in [Kota](GPE)
+    - weather of [noida](GPE)
+    - Today's weather in [london](GPE)
+    - [paris](GPE) weather
+    - Tell me weather of [kolkata](GPE)
+    - Tell me weather
+    - Can you tell me weather of [pune](GPE)
+    - what is the weather in [rome](GPE)
+    - what is the weather in [tokyo](GPE)
+    - what is the weather in [madrid](GPE)
+    - weather of [banglore](GPE)
+    - weather of [new york](GPE)
+    - weather of [seoul](GPE)
+    - weather of [osaka](GPE)
+
+
+- lookup: GPE
+  examples: |
+    - guna
+    - chennai
+    - igatpuri
+    - Mumbai
+    - Delhi
+    - goa
+    - kolkata
+    - benglore
+    - London
+    - paris
+    - Delft
+    - ladakh
+    - kota
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: create_list
+  examples: |
+    - create a list for me
+    - make a list for me
+    - create list [list1](list_name)
+    - create [list2](list_name)
+    - create [my](list_name)
+    - create [list3](list_name)
+    - create [list4](list_name)
+    - create [list5](list_name)
+    - create [bag1](list_name)
+    - create [bag2](list_name)
+    - create [bag3](list_name)
+    - create [travel](list_name)
+    - create [handbag](list_name)
+    - create [list1](list_name) list
+    - create [list2](list_name) list
+    - create [bag1](list_name) list
+- intent: show_list
+  examples: |
+    - show me the list
+    - show the list
+    - check my list
+    - show [list1](list_name)
+    - show [list2](list_name)
+    - show [list3](list_name)
+    - show [bag1](list_name)
+    - show [bag2](list_name)
+    - show [handbag](list_name)
+    - show [travel](list_name)
+    - show [list1](list_name) list
+    - show [list2](list_name) list
+    - show [list3](list_name) list
+    - show [bag1](list_name) list
+    - show [bag2](list_name) list
+    - show [handbag](list_name) list
+    - show [travel](list_name) list
+    - show list [list1](list_name)
+- intent: add_to_list
+  examples: |
+    - add [charger](item) to [handbag](list_name)
+    - add [jeans](item) to list
+    - add [shirt](item) to list
+    - add [laptop](item) to list
+    - add [charger](item) to list
+    - add [shoes](item) to [list1](list_name)
+    - add [shorts](item) to [list2](list_name)
+    - add [trousers](item) to [list3](list_name)
+    - add [chips](item) to [bag1](list_name)
+    - add [shirt](item) to [travel](list_name)
+    - add [jacket](item) to [list4](list_name)
+    - add [sweater](item) to [my](list_name)
+    - add [cream](item) to [handbag](list_name)
+- intent: mark_item
+  examples: |
+    - mark item
+    - mark [shirt](item)
+    - mark [jacket](item) in [handbag](list_name)
+    - mark [charger](item) in [list1](list_name)
+    - mark [jeans](item) in [bag1](list_name)
+    - mark [passport](item) in [big bag](list_name)
+    - mark [aadhar](item) in [purse](list_name)
+    - packed [charger](item)
+
+- intent: username
+  examples: |
+    - [aayush](user)
+    - [aayush1](user)
+    - [devyansh](user)
+    - [devyansh1](user)
+    - [divyansh](user)
+    - [nikhil](user)
+    - [nikhil1](user)
+    - [tayal](user)
+
+- intent: recommend_restaurant
+  examples: |
+    - best place to eat in [Mumbai](GPE)
+    - best place to eat in [Delft](GPE)    
+    - best restaurant in [Mumbai](GPE)
+    - recomend restaurant in [Mumbai](GPE)
+    - best food to eat in [Mumbai](GPE)
+
+
+- intent: save_trip
+  examples: |
+    - Save my trip details of delhi
+    - save my trip to mumbai
+    - Save my trip details of Delft
+    - save my trip to goa
+    - Save my trip details of [siness]tripname)
+    - save my trip to [family](tripname)
+    - Save my trip details of [friends](tripname)
+    - Save my [family](tripname) trip details 
+    - save my trip with [friends](tripname)
+    - same details of my [solo](tripname) trip
+    - Save my trip details of ladakh
+    - save my trip to paris
+    - same details of my london trip
+    - same details of my Delft trip
+
+
+- intent: what_can_you_do
+  examples: |
+    - what can you do
+    - Help me 
+    - why should i use you 
+    - what are your features
+    - how do you work 
+    - Help
+    - who are you
+
+
+    
+
+
+
+
+
+    
+
+    

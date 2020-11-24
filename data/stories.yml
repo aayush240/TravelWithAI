@@ -1,0 +1,131 @@
+version: "2.0"
+
+stories:
+
+- story: start
+  steps:
+  - intent: greet
+  - action: utter_greet
+  
+- story: create list form
+  steps:
+  - intent: create_list
+  - action: create_list_form
+  - active_loop: create_list_form
+      
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: weather 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: weather_for_location
+  - action: utter_getting_weather
+  - action: action_get_weather
+  - intent: thanks
+  - action: utter_welcome
+
+- story: weather 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: weather_for_location{"GPE":"London"}
+  - action: utter_getting_weather
+  - action: action_get_weather
+
+- story: weather 3
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: weather_for_location{"GPE":"Kota"}
+  - action: utter_getting_weather
+  - action: action_get_weather
+  
+ 
+- story: add to list
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: add_to_list
+  - action: utter_adding_to_list
+  - action: action_add_to_list
+
+- story: show list
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: show_list
+  - action: utter_showing_list
+  - action: action_show_list
+
+- story: mark item
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mark_item
+  - action: utter_marking_item
+  - action: action_mark_item
+
+- story: what can you do
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: what_can_you_do
+  - action: utter_i_can_do
+  
+
+- story: eat out
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: recommend_restaurant{"GPE":"Delft"}
+  - action: utter_bestplacetoeat
+  - action: action_recommend_restaurant
+
+- story: eat out
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: recommend_restaurant{"GPE":"london"}
+  - action: utter_bestplacetoeat
+  - action: action_recommend_restaurant
+
+- story: eat out
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: recommend_restaurant
+  - action: utter_bestplacetoeat
+  - action: action_recommend_restaurant
+
+- story: save trip form
+  steps:
+  - intent: save_trip
+  - action: save_trip_form
+  - active_loop: save_trip_form

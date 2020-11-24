@@ -1,0 +1,151 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+- weather
+- weather_for_location
+- city_info
+- thanks
+- create_list
+- show_list
+- add_to_list
+- create_list{"list_name":"handbag"}
+- weather_for_location{"GPE":"London"}
+- mark_item
+- start
+- username
+- recommend_restaurant
+- save_trip
+- what_can_you_do
+- recommend_restaurant{"GPE":"Delft"}
+- recommend_restaurant{"GPE":"london"}
+- weather_for_location{"GPE":"Kota"}
+
+entities:
+- GPE
+- list_name
+- item
+- user
+- tripname
+slots:
+  item:
+    type: text
+    influence_conversation: false
+  list_name:
+    type: text
+    influence_conversation: false
+  GPE:
+    type: text
+    influence_conversation: false
+  user:
+    type: text
+    influence_conversation: false
+  tripname:
+    type: text
+    influence_conversation: false
+  activity:
+    type: text
+    influence_conversation: false
+  date_a:
+    type: text
+    influence_conversation: false
+  time_a:
+    type: text
+    influence_conversation: false
+
+  
+responses:
+  utter_i_can_do:
+  - text: 'I can help you with'
+    buttons:
+    - title: create list
+      payload: /create_list
+    - title: show list
+      payload: /show_list
+    - title: save trip details
+      payload: /save_trip
+    - title: recommend restaurant
+      payload: /recommend_restaurant
+    - title: check weather
+      payload: /weather_for_location
+
+  utter_cheer_up:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: 'Here is something to cheer you up:'
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_location:
+  - text: of where?
+  - text: In what city?
+  utter_getting_weather:
+  - text: Ok, getting weather of {GPE}...
+  utter_welcome:
+  - text: Welcome
+  utter_creating_list:
+  - text: Creating list {list_name}
+  utter_adding_to_list:
+  - text: Adding {item} to {list_name}
+  utter_showing_list:
+  - text: The following {list_name} contains theese items
+  utter_marking_item:
+  - text: The following {item} has been Marked from {list_name}
+  utter_add_item:
+  - text: Add item To the {list}
+  utter_greet:
+  - text: Hey! I am a travel bot. how can i help You!! 
+  utter_welcome_user:
+  - text: Welcome {user}
+  utter_ask_list_name:
+  - text: Please provide list name
+  utter_ask_item:
+  - text: Enter item in list
+  utter_bestplacetoeat:
+  - text: Best place to eat out in {GPE}
+  utter_ask_tripname:
+  - text: Enter tripname(GPE,type)
+  utter_ask_activity:
+  - text: Enter activity(restaurant,attraction,flight)
+  utter_ask_date_a:
+  - text: Enter activity date in format (2020-11-10)
+  utter_ask_time_a:
+  - text: Enter activity time in format (03:47:39)
+
+forms:
+  create_list_form:
+    list_name:
+      - type: from_text
+    item:
+      - type: from_text
+  save_trip_form:
+    tripname:
+      - type: from_text
+    activity:
+      - type: from_text
+    date_a:
+      - type: from_text
+    time_a:
+      - type: from_text
+    
+
+actions:
+- utter_greet
+- action_get_weather
+- action_add_to_list
+- action_show_list
+- action_mark_item
+- validate_create_list_form
+- action_recommend_restaurant
+- validate_save_trip_form
