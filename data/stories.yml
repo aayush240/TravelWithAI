@@ -124,8 +124,28 @@ stories:
   - action: utter_bestplacetoeat
   - action: action_recommend_restaurant
 
-- story: save trip form
+- story: save activity form 1
   steps:
-  - intent: save_trip
-  - action: save_trip_form
-  - active_loop: save_trip_form
+  - intent: save_activity
+  - action: save_activity_form
+  - active_loop: save_activity_form
+
+
+- story: save activity form 2
+  steps:
+  - intent: save_activity
+  - action: save_activity_form
+  - active_loop: save_activity_form
+  - intent: deny
+  - action: utter_ask_continue
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: train pnr
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: save_train
+  - action: utter_train_pnr
+ 
