@@ -27,6 +27,8 @@ intents:
 - recommend_restaurant{"GPE":"Delft"}
 - recommend_restaurant{"GPE":"london"}
 - weather_for_location{"GPE":"Kota"}
+- save_activity
+- save_train
 
 entities:
 - GPE
@@ -34,6 +36,9 @@ entities:
 - item
 - user
 - tripname
+- time
+- act_type
+- train_pnr
 slots:
   item:
     type: text
@@ -47,16 +52,19 @@ slots:
   user:
     type: text
     influence_conversation: false
-  tripname:
+  act_type:
     type: text
     influence_conversation: false
   activity:
     type: text
     influence_conversation: false
-  date_a:
+  date_time:
     type: text
     influence_conversation: false
-  time_a:
+  others:
+    type: text
+    influence_conversation: false
+  train_pnr:
     type: text
     influence_conversation: false
 
@@ -114,14 +122,33 @@ responses:
   - text: Enter item in list
   utter_bestplacetoeat:
   - text: Best place to eat out in {GPE}
-  utter_ask_tripname:
-  - text: Enter tripname(GPE,type)
+  utter_ask_act_type:
+  - text: 'Please Specify what kind of activity you wanna save!!'
+    buttons:
+    - title: Train
+      payload: /save_activity{"act_type":"train"}
+    - title: flight
+      payload: /save_activity{"act_type":"flight"}
+    - title: Restaurant
+      payload: /save_activity{"act_type":"restaurant"}
+    - title: Hotel
+      payload: /save_activity{"act_type":"hotel"}
+    - title: other
+      payload: /save_activity{"act_type":"other"} 
+
   utter_ask_activity:
-  - text: Enter activity(restaurant,attraction,flight)
-  utter_ask_date_a:
-  - text: Enter activity date in format (2020-11-10)
-  utter_ask_time_a:
-  - text: Enter activity time in format (03:47:39)
+  - text: Enter details
+  utter_ask_date_time:
+  - text: Enter activity date in format.
+  utter_please_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
+  utter_ask_others:
+  - text: Enter extra details you wanna save.
+  utter_train_pnr:
+  - text: Your PNR no is {train_pnr} Saved!!
+  utter_ask_continue:
+  - text: Do You want to continue.
+
 
 forms:
   create_list_form:
@@ -129,14 +156,16 @@ forms:
       - type: from_text
     item:
       - type: from_text
-  save_trip_form:
-    tripname:
-      - type: from_text
+  save_activity_form:
+    act_type:
+      - type: from_entity
+        entity: act_type
+        intent: save_activity
     activity:
       - type: from_text
-    date_a:
+    date_time:
       - type: from_text
-    time_a:
+    others:
       - type: from_text
     
 
@@ -148,4 +177,4 @@ actions:
 - action_mark_item
 - validate_create_list_form
 - action_recommend_restaurant
-- validate_save_trip_form
+- validate_save_activity_form

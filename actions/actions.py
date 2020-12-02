@@ -11,22 +11,11 @@ import mysql.connector
 import json
 from mysql.connector import Error
 
-import mysql.connector
-import json
-from mysql.connector import Error
+import dateparser
+from dateparser.search import search_dates
+import datetime
+from datetime import datetime
 
-account = 'L7RMFP60'
-token = 'pej8xrl3qwlaa4bqe4bj2w5ofqe9mrj4'
-loc =  "Delft"
-current = requests.get('https://www.triposo.com/api/20200803/poi.json?location_id={}&tag_labels=eatingout&count=3&fields=id,name,score,intro,tag_labels,best_for&order_by=-score&account={}&token={}'.format(loc, account, token)).json()
-
-print(json.dumps(current, indent=1))
-for i in range(0,3):
-    name=current['results'][i]['name']
-    print(name)
-    intro=current['results'][i]['intro']
-    print(intro)
-    response = """ {} =>  {}""".format(name,intro)
 
 class ActionCheckWeather(Action):
 
@@ -57,6 +46,7 @@ class ActionRecommendRestaurant(Action):
         account = 'L7RMFP60'
         token = 'pej8xrl3qwlaa4bqe4bj2w5ofqe9mrj4'
         loc =  tracker.get_slot('GPE')
+        loc = loc.title()
         current = requests.get('https://www.triposo.com/api/20200803/poi.json?location_id={}&tag_labels=eatingout&count=3&fields=id,name,score,intro,tag_labels,best_for&order_by=-score&account={}&token={}'.format(loc, account, token)).json()
 
         print(json.dumps(current, indent=1))
@@ -107,43 +97,46 @@ class validateCreateListform(Action):
         dispatcher.utter_message(res)
         return [SlotSet('list_name', list_name)]
 
-class validatesavetripform(Action):
+class validateSaveActivityForm(Action):
 
     def name(self)-> Text:
-        return "validate_save_trip_form"
+        return "validate_save_activity_form"
 
     
     def run(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> List[EventType]:
 
-        required_slots = ["tripname", "activity", "date_a", "time_a"]
+        required_slots = ["act_type", "activity", "date_time"]
         for slot_name in required_slots:
             if tracker.slots.get(slot_name) is None:
                 # The slot is not filled yet. Request the user to fill this slot next.
                 return [SlotSet("requested_slot", slot_name)]
         
-        name = tracker.get_slot('tripname')
+        act_type = tracker.get_slot('act_type')
         act = tracker.get_slot('activity')
-        date = tracker.get_slot('date_a')
-        time = tracker.get_slot('time_a')
+        date_time = tracker.get_slot('date_time')
+        other = tracker.get_slot('others')
         
+        b=dateparser.parse(date_time, settings={'TIMEZONE': '+0530'})
+        date=b.date()
+        time=b.time()
         conn = mysql.connector.connect(host='remotemysql.com',
                                          database='znQpgumjmV',
                                          user='znQpgumjmV',
                                          password='p55RkgsiKw')
         cur=conn.cursor()
-        sql = "INSERT INTO timeline (id,user,tripname,activity,date_activity,time_activity) VALUES (%s,%s,%s,%s,%s,%s)"
-        val = (0,"aayush", name, act, date, time)
+        sql = "INSERT INTO timeline (id,user,tripname,activity,date_activity,time_activity,other) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        val = (0,"test",act_type,act,date,time,other)
         cur.execute(sql, val)
         print("done")
         conn.commit() 
         cur.close()           
         conn.close()
 
-        res = """ {} trip details saved""".format(name)
+        res = """ {} details saved""".format(act_type)
         dispatcher.utter_message(res)
-        return [SlotSet('tripname', name)]
+        return 
 
 class ShowList(Action):
 
@@ -235,3 +228,5 @@ class MarkItem(Action):
         res = """{} item marked in {}""".format(item_name,list_name)
         dispatcher.utter_message(res)
         return [SlotSet('list_name', list_name)]
+
+

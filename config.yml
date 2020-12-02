@@ -17,7 +17,9 @@ pipeline:
 - name: RegexEntityExtractor
   case_sensitive: False
   use_lookup_tables: True
-  use_regexes: False
+  use_regexes: True
+- name: FallbackClassifier
+  threshold: 0.7
 - name: "EntitySynonymMapper"
 - name: ResponseSelector
   epochs: 100
