@@ -204,9 +204,6 @@ forms:
       - type: from_text
     
      
-        
-  
-
 actions:
 - utter_greet
 - check_weather
