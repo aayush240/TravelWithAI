@@ -11,16 +11,170 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
   
-
-
-- rule: Activate form
-  steps:
-  - intent: create_list
-  - action: create_list_form
-  - active_loop: create_list_form
-
 - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
   steps:
   - intent: nlu_fallback
   - action: utter_please_rephrase
 
+- rule: check weather form
+  steps:
+  - intent: weather_for_location
+  - action: check_weather_form
+  - active_loop: check_weather_form
+  
+
+- rule: after check weather form
+  condition:
+  # Condition that form is active.
+  - active_loop: check_weather_form
+  steps:
+  # Form is deactivated
+  - action: check_weather_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: check_weather
+  - action: action_reset_slot
+  
+- rule: recommend_restaurant form
+  steps:
+  - intent: recommend_restaurant
+  - action: recommend_restaurant_form
+  - active_loop: recommend_restaurant_form
+
+
+- rule: after recommend_restaurant form
+  condition:
+  # Condition that form is active.
+  - active_loop: recommend_restaurant_form
+  steps:
+  # Form is deactivated
+  - action: recommend_restaurant_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_recommend_restaurant
+  - action: action_reset_slot
+
+- rule: show list form
+  steps:
+  - intent: show_list
+  - action: show_list_form
+  - active_loop: show_list_form
+
+- rule: after show list form
+  condition:
+  # Condition that form is active.
+  - active_loop: show_list_form
+  steps:
+  # Form is deactivated
+  - action: show_list_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_show_list
+  - action: action_reset_slot
+
+- rule: add to list form
+  steps:
+  - intent: add_to_list
+  - action: add_to_list_form
+  - active_loop: add_to_list_form
+
+- rule: after add to list form
+  condition:
+  # Condition that form is active.
+  - active_loop: add_to_list_form
+  steps:
+  # Form is deactivated
+  - action: add_to_list_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_add_to_list
+  - action: action_reset_slot
+
+- rule: mark_item form
+  steps:
+  - intent: mark_item
+  - action: mark_item_form
+  - active_loop: mark_item_form
+
+- rule: after mark_item form
+  condition:
+  # Condition that form is active.
+  - active_loop: mark_item_form
+  steps:
+  # Form is deactivated
+  - action: mark_item_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_mark_item
+  - action: action_reset_slot
+
+- rule: create list form
+  steps:
+  - intent: create_list
+  - action: create_list_form
+  - active_loop: create_list_form
+
+- rule: after create list  form
+  condition:
+  # Condition that form is active.
+  - active_loop: create_list_form
+  steps:
+  # Form is deactivated
+  - action: create_list_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_create_list 
+  - action: action_reset_slot
+
+- rule: save activity form
+  steps:
+  - intent: save_activity
+  - action: save_activity_form
+  - active_loop: save_activity_form
+
+- rule: after save activity  form
+  condition:
+  # Condition that form is active.
+  - active_loop: save_activity_form
+  steps:
+  # Form is deactivated
+  - action: save_activity_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_save_activity 
+  - action: action_reset_slot
+
+- rule: add expense form
+  steps:
+  - intent: add_expense
+  - action: add_expense_form
+  - active_loop: add_expense_form
+  
+
+- rule: after add expense form
+  condition:
+  # Condition that form is active.
+  - active_loop: add_expense_form
+  steps:
+  # Form is deactivated
+  - action: add_expense_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: action_add_expense
+  - action: action_reset_slot

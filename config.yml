@@ -13,7 +13,7 @@ pipeline:
 - name: SpacyNLP
   model: "en"
 - name: SpacyEntityExtractor
-  dimensions: ["PERSON","GPE"]
+  dimensions: ["MONEY","GPE"]
 - name: RegexEntityExtractor
   case_sensitive: False
   use_lookup_tables: True

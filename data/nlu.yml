@@ -81,15 +81,12 @@ nlu:
     - so sad
 - intent: weather_for_location
   examples: |
-    - check the weather
-    - what is the weather
     - what is the weather in [Mumbai](GPE)
     - what is the weather in [Kota](GPE)
     - weather of [noida](GPE)
     - Today's weather in [london](GPE)
     - [paris](GPE) weather
     - Tell me weather of [kolkata](GPE)
-    - Tell me weather
     - Can you tell me weather of [pune](GPE)
     - what is the weather in [rome](GPE)
     - what is the weather in [tokyo](GPE)
@@ -98,7 +95,13 @@ nlu:
     - weather of [new york](GPE)
     - weather of [seoul](GPE)
     - weather of [osaka](GPE)
-
+    - check the weather
+    - what is the weather
+    - what is the weather 
+    - tell me the weather
+    - please tell me today weather
+    - weather today
+    - Tell me weather
 
 - lookup: GPE
   examples: |
@@ -146,11 +149,13 @@ nlu:
     - show the list
     - check my list
     - show [list1](list_name)
+    - show [all](list_name) list
     - show [list2](list_name)
     - show [list3](list_name)
     - show [bag1](list_name)
     - show [bag2](list_name)
     - show [handbag](list_name)
+    - show me [all](list_name) of my list
     - show [travel](list_name)
     - show [list1](list_name) list
     - show [list2](list_name) list
@@ -255,17 +260,27 @@ nlu:
   examples: |
     - \d{10}
 
+- intent: add_expense
+  examples: |
+    - I spend [100rupees](MONEY) [today](date_time)
+    - I spend [100rupees](MONEY) rupees [today](date_time)
+    - I spend rupees [100rupees](MONEY) [today](date_time)
+    - I spend [10 rupees](MONEY) [today](date_time)
+    - I spend [100 dollar](MONEY) [today](date_time)
+    - I spend [10000rupees](MONEY) [today](date_time)
+    - [today](date_time) i spent [1000](MONEY) rupees
+    - [today](date_time) i spent [10100](MONEY) rupees
+    - [today](date_time) i spent [100](MONEY) rupees
+    - [today](date_time) i spent [5000](MONEY) rupees
+    - I spend [1050](MONEY)
+    - I spend [100](MONEY)
+    - I spend [1700](MONEY)
+    - i spend [1007](MONEY) on [breakfast](activity)
+    - i spend [100](MONEY) on [lunch](activity)
+    - i spend [100](MONEY) on [dinner](activity) [now](date_time)
+    - i spend [100](MONEY) on [chips](activity) [yesterday](date_time)
+    - i spend [100](MONEY) on [](activity) [today](date_time)
 
-
-
-
-
-    
-
-    
-
-
-    
 
 
 

@@ -29,6 +29,7 @@ intents:
 - weather_for_location{"GPE":"Kota"}
 - save_activity
 - save_train
+- add_expense
 
 entities:
 - GPE
@@ -39,14 +40,18 @@ entities:
 - time
 - act_type
 - train_pnr
+- MONEY
 slots:
   item:
     type: text
-    influence_conversation: false
+    influence_conversation: True
   list_name:
     type: text
-    influence_conversation: false
+    influence_conversation: True
   GPE:
+    type: text
+    influence_conversation: false
+  MONEY:
     type: text
     influence_conversation: false
   user:
@@ -116,6 +121,8 @@ responses:
   - text: Hey! I am a travel bot. how can i help You!! 
   utter_welcome_user:
   - text: Welcome {user}
+  utter_ask_GPE:
+  - text: please tell city
   utter_ask_list_name:
   - text: Please provide list name
   utter_ask_item:
@@ -143,11 +150,13 @@ responses:
   utter_please_rephrase:
   - text: I'm sorry, I didn't quite understand that. Could you rephrase?
   utter_ask_others:
-  - text: Enter extra details you wanna save.
+  - text: Enter extra details you wanna save(if none say null).
   utter_train_pnr:
   - text: Your PNR no is {train_pnr} Saved!!
   utter_ask_continue:
   - text: Do You want to continue.
+  utter_ask_MONEY:
+  - text: please enter money.
 
 
 forms:
@@ -167,14 +176,42 @@ forms:
       - type: from_text
     others:
       - type: from_text
+  check_weather_form:
+    GPE:
+      - type: from_text
+  show_list_form:
+    list_name:
+      - type: from_text
+  add_to_list_form:
+    list_name:
+      - type: from_text
+    item:
+      - type: from_text
+  recommend_restaurant_form:
+    GPE:
+      - type: from_text
+  mark_item_form:
+    list_name:
+      - type: from_text 
+    item:
+      - type: from_text
+  add_expense_form:
+    MONEY:
+      - type: from_text
+    activity:
+      - type: from_text
+    date_time:
+      - type: from_text
     
-
+     
 actions:
 - utter_greet
-- action_get_weather
+- check_weather
 - action_add_to_list
+- action_reset_slot
 - action_show_list
 - action_mark_item
-- validate_create_list_form
+- action_create_list
 - action_recommend_restaurant
-- validate_save_activity_form
+- action_save_activity
+- action_add_expense
