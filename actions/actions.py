@@ -173,6 +173,9 @@ class ShowList(Action):
             for z in range (0,i):
                 response = """{}""".format(result[z][0])
                 dispatcher.utter_message(response)
+            conn.commit()
+            cur.close()       
+            conn.close()
             return [SlotSet('list_name', list_name)]
 
 
@@ -194,6 +197,7 @@ class ShowList(Action):
         for z in range (0,i):
             response = """{}""".format(result[z][0])
             dispatcher.utter_message(response) 
+        conn.commit()
         cur.close()       
         conn.close()
 
@@ -295,3 +299,44 @@ class AddExpenseform(Action):
         res = """ {} money spent on {} """.format(money,act)
         dispatcher.utter_message(res)
         return
+
+class DeleteList(Action):
+
+    def name(self)-> Text:
+        return "action_delete_list"
+    
+    def run(self, dispatcher, tracker, domain):
+        
+        list_name= tracker.get_slot('list_name')
+        user = tracker.sender_id
+        if (list_name=="all"):
+            conn = mysql.connector.connect(host='remotemysql.com',
+                                         database='znQpgumjmV',
+                                         user='znQpgumjmV',
+                                         password='p55RkgsiKw')
+            cur=conn.cursor()
+            sql1 = "DELETE FROM ToDoList WHERE username=%s"
+            val1=(user,)
+            cur.execute(sql1,val1)
+            response = """All the list for user {} has been deleted""".format(user)
+            dispatcher.utter_message(response)
+            conn.commit() 
+            cur.close()       
+            conn.close()
+            return [SlotSet('list_name', list_name)]
+
+
+        conn = mysql.connector.connect(host='remotemysql.com',
+                                         database='znQpgumjmV',
+                                         user='znQpgumjmV',
+                                         password='p55RkgsiKw')
+        cur=conn.cursor()
+        sql1 = "DELETE FROM ToDoList WHERE username=%s and listname=%s"
+        val1=(user,list_name)
+        cur.execute(sql1,val1)
+        response = """{} has been deleted for user {}""".format(list_name,user)
+        dispatcher.utter_message(response)
+        conn.commit() 
+        cur.close()       
+        conn.close()
+        return [SlotSet('list_name', list_name)]
