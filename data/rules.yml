@@ -178,3 +178,40 @@ rules:
   # The actions we want to run when the form is submitted.
   - action: action_add_expense
   - action: action_reset_slot
+
+- rule: delete list form
+  steps:
+  - intent: delete_list
+  - action: delete_list_form
+  - active_loop: delete_list_form
+
+- rule: after delete list form
+  condition:
+  # Condition that form is active.
+  - active_loop: delete_list_form
+  steps:
+  # Form is deactivated
+  - action: delete_list_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_ask_sure_delete_list
+  - intent: affirm
+  - action: action_delete_list
+  - action: action_reset_slot
+
+- rule: after delete list form
+  condition:
+  # Condition that form is active.
+  - active_loop: delete_list_form
+  steps:
+  # Form is deactivated
+  - action: delete_list_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_ask_sure_delete_list
+  - intent: deny
+  - action: utter_ok
