@@ -281,6 +281,24 @@ nlu:
     - i spend [100](MONEY) on [chips](activity) [yesterday](date_time)
     - i spend [100](MONEY) on [](activity) [today](date_time)
 
+- intent: delete_list
+  examples: |
+    - delete list
+    - delete the list
+    - delete my list
+    - delete [list1](list_name)
+    - delete [all](list_name) list
+    - delete [list2](list_name)
+    - delete [list3](list_name)
+    - delete [bag1](list_name)
+    - delete [bag2](list_name)
+    - remove me the list
+    - remove the list
+    - remove my list
+    - remove [list1](list_name)
+    - remove [all](list_name) list
+    - remove [list2](list_name)
+
 
 
 
